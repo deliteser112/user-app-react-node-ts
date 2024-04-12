@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  user-api:
+    build:
+      context: ./user-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - ./user-api:/usr/src/app
+      - /usr/src/app/node_modules
+
+  user-app-ui:
+    build:
+      context: ./user-app-ui
+    ports:
+      - "80:80"
+    depends_on:
+      - user-api

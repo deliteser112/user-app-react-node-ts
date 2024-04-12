@@ -1,7 +1,8 @@
 // src/features/users/usersSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store/store';
-import { User } from './usersAPI';
+// import { User } from './usersAPI';
+import { User } from '../../types/user';
 
 interface UsersState {
   list: User[];

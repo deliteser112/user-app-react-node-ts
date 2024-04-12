@@ -1,11 +1,6 @@
 // src/features/users/usersAPI.ts
 
-export interface User {
-  _id: string;
-  name: string;
-  email: string;
-  age: number;
-}
+import { User } from '../../types/user';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/users';
 
