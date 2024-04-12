@@ -1,7 +1,7 @@
 // src/components/users/UserForm.tsx
 import React, { useState } from "react";
-import { User } from "../../features/users/usersAPI";
-import InputField from "../common/InputField"; // Import the InputField component
+import InputField from "../common/InputField";
+import { User } from '../../types/user';
 
 interface UserFormProps {
   user?: User; // If user is provided, the form is in edit mode.
