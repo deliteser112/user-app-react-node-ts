@@ -3,13 +3,14 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
-  User,
   updateUser,
   findUserById,
-} from "../../../features/users/usersAPI"; // Make sure to import findUserById
+} from "../../../features/users/usersAPI";
 import UserForm from "../../../components/users/UserForm";
-import SkeletonUserForm from "../../../components/users/SkeletonUserForm"; // Adjust the import as necessary
+import SkeletonUserForm from "../../../components/users/SkeletonUserForm";
 import Layout from "../../../components/layout/Layout";
+
+import { User } from '../../../types/user';
 
 const UserEditPage: React.FC = () => {
   const router = useRouter();

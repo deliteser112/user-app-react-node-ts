@@ -3,8 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../../../components/layout/Layout";
-import { User, findUserById } from "../../../features/users/usersAPI"; // Adjust import as necessary
-import SkeletonUserDetail from "../../../components/users/SkeletonUserDetail"; // Ensure the path is correct
+import { findUserById } from "../../../features/users/usersAPI";
+import SkeletonUserDetail from "../../../components/users/SkeletonUserDetail";
+
+import { User } from "../../../types/user";
 
 const UserDetailsPage: React.FC = () => {
   const router = useRouter();

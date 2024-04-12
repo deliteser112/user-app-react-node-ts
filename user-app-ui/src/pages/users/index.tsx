@@ -3,7 +3,9 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 import Layout from "../../components/layout/Layout";
-import { User, fetchUsers } from "../../features/users/usersAPI";
+import { fetchUsers } from "../../features/users/usersAPI";
+
+import { User } from '../../types/user';
 
 const UsersPage: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);

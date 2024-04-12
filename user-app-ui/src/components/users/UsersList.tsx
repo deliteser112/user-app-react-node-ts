@@ -1,7 +1,9 @@
 // src/components/users/UsersList.tsx
 
 import React, { useEffect, useState } from "react";
-import { User, fetchUsers, deleteUser } from "../../features/users/usersAPI";
+import { fetchUsers, deleteUser } from "../../features/users/usersAPI";
+
+import { User } from '../../types/user'
 
 import ConfirmDialog from "../common/ConfirmDialog";
 import Pagination from "../common/Pagination";
