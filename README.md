@@ -1,4 +1,4 @@
-```markdown
+
 # Project Documentation
 
 Welcome to the comprehensive documentation for our full-stack application, which includes a backend API (user-api) and a frontend UI (user-app-ui). This guide covers setting up the project, dockerizing the frontend and backend, implementing pagination, and ensuring compatibility with specific Node.js versions for Next.js.
@@ -91,4 +91,3 @@ The frontend will be accessible at http://localhost, and the backend API will be
 ## Conclusion
 
 This documentation outlines the setup, dockerization, pagination implementation, and compatibility considerations for the project. Follow the instructions to get started and explore the functionalities of our full-stack application.
-```
