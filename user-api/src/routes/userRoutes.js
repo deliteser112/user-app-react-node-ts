@@ -26,7 +26,7 @@ router.get('/:id', userController.getUserById);
 /**
  * Route for updating a user's information by their ID.
  */
-router.put('/:id', userController.updateUser);
+router.put('/:id', userCreationRules(), validate, userController.updateUser);
 
 /**
  * Route for deleting a user by their ID.

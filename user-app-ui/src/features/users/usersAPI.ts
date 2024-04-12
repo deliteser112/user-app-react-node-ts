@@ -7,7 +7,7 @@ export interface User {
   age: number;
 }
 
-const API_URL = 'http://localhost:4000/api/users';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/users';
 
 // Fetch all users
 export const fetchUsers = async (): Promise<User[]> => {
@@ -28,14 +28,14 @@ export const createUser = async (userData: Omit<User, '_id'>): Promise<User> => 
     body: JSON.stringify(userData),
   });
   if (!response.ok) {
-    throw new Error('Failed to create user');
+    const errorData = await response.json();
+    throw { isError: true, data: errorData };
   }
   return response.json();
 };
 
 // Update an existing user
 export const updateUser = async (id: string, userData: Partial<Omit<User, '_id'>>): Promise<User> => {
-  console.log('id=', id, 'data', userData);
   const response = await fetch(`${API_URL}/${id}`, {
     method: 'PUT',
     headers: {
@@ -44,7 +44,9 @@ export const updateUser = async (id: string, userData: Partial<Omit<User, '_id'>
     body: JSON.stringify(userData),
   });
   if (!response.ok) {
-    throw new Error('Failed to update user');
+    const errorData = await response.json();
+    console.log('errorData', errorData)
+    throw { isError: true, data: errorData };
   }
   return response.json();
 };
