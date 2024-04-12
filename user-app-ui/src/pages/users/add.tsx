@@ -14,8 +14,6 @@ const AddUserPage: React.FC = () => {
     router.push("/");
   };
 
-  // For adding a new user, we call `createUser` directly from the UserForm component
-  // and pass an empty object as the user prop to reset the form fields
   return (
     <Layout title="User | Add New User">
       <div>

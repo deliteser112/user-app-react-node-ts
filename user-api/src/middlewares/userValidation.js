@@ -2,7 +2,6 @@
 
 const { body, validationResult } = require('express-validator');
 
-// Define validation rules for a new user
 const userCreationRules = () => {
   return [
     body('name').notEmpty().withMessage('Name is required'),
@@ -11,7 +10,6 @@ const userCreationRules = () => {
   ];
 };
 
-// Middleware to handle validation results
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {

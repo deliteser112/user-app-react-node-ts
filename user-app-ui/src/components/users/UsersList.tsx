@@ -1,58 +1,49 @@
-// src/components/users/UsersList.tsx
-
-import React, { useEffect, useState } from "react";
-import { fetchUsers, deleteUser } from "../../features/users/usersAPI";
-
-import { User } from '../../types/user'
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import { deleteUser } from "../../features/users/usersAPI";
 
 import ConfirmDialog from "../common/ConfirmDialog";
 import Pagination from "../common/Pagination";
+import NoData from "../common/NoData";
 
 import UserItem from "./UserItem";
+import SkeletonUserItem from "./SkeletonUserItem";
 
-const PAGE_PER_ITEMS = 5;
+import { useUsers } from "../../hooks/useUsers";
+
+import { User } from "../../types/user";
 
 const UsersList: React.FC = () => {
-  const [paginatedUsers, setPaginatedUsers] = useState<User[]>([]);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const [isConfirmOpen, setIsConfirmOpen] = useState<boolean>(false);
   const [userIdToDelete, setUserIdToDelete] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const queryClient = useQueryClient();
 
-  useEffect(() => {
-    const loadUsers = async () => {
-      try {
-        const { users, totalPages } = await fetchUsers(
-          currentPage,
-          PAGE_PER_ITEMS
-        );
-        setPaginatedUsers(users);
-        setTotalPages(totalPages);
-      } catch (error) {
-        console.error("Failed to fetch users:", error);
-      }
-    };
+  // Fetch users with pagination
+  const { data, isLoading, isError } = useUsers(currentPage);
 
-    loadUsers();
-  }, [currentPage]);
+  // Mutation for deleting a user
+  const deleteMutation = useMutation((userId: string) => deleteUser(userId), {
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries(["users", currentPage]);
+      closeConfirmDialog();
+    },
+  });
 
   const openConfirmDialog = (userId: string) => {
     setUserIdToDelete(userId);
     setIsConfirmOpen(true);
   };
 
-  const handleDelete = async () => {
+  const closeConfirmDialog = () => {
+    setIsConfirmOpen(false);
+    setUserIdToDelete(null);
+  };
+
+  const handleDelete = () => {
     if (userIdToDelete) {
-      try {
-        await deleteUser(userIdToDelete);
-        setPaginatedUsers(
-          paginatedUsers.filter((user) => user._id !== userIdToDelete)
-        );
-        setIsConfirmOpen(false);
-        setUserIdToDelete(null);
-      } catch (error) {
-        console.error("Failed to delete user:", error);
-      }
+      deleteMutation.mutate(userIdToDelete);
     }
   };
 
@@ -60,23 +51,35 @@ const UsersList: React.FC = () => {
     setCurrentPage(page);
   };
 
+  if (isLoading) return <SkeletonUserItem />;
+  if (isError) return <div>An error occurred</div>;
+
   return (
     <div className="max-w-full mx-auto my-10">
       <ConfirmDialog
         isOpen={isConfirmOpen}
-        onClose={() => setIsConfirmOpen(false)}
+        onClose={closeConfirmDialog}
         onConfirm={handleDelete}
         title="Confirm User Deletion"
         message="Are you sure you want to delete this user?"
       />
-      {paginatedUsers.map((user) => (
-        <UserItem key={user._id} user={user} onDelete={openConfirmDialog} />
-      ))}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+      {data?.users.length > 0 ? (
+        <>
+          {data?.users.map((user: User) => (
+            <UserItem key={user._id} user={user} onDelete={openConfirmDialog} />
+          ))}
+        </>
+      ) : (
+        <NoData />
+      )}
+
+      {data?.totalPages > 1 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={data.totalPages}
+          onPageChange={handlePageChange}
+        />
+      )}
     </div>
   );
 };

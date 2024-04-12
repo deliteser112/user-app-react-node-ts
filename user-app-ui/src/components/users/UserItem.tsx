@@ -9,7 +9,7 @@ interface UserItemProps {
     name: string;
     email: string;
   };
-  onDelete: (userId: string) => void; // Function to handle deletion
+  onDelete: (userId: string) => void;
 }
 
 const UserItem: React.FC<UserItemProps> = ({ user, onDelete }) => {

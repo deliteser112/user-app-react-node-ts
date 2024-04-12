@@ -10,7 +10,7 @@ const userService = require('../services/userService');
  */
 exports.getAllUsers = async (req, res) => {
   try {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 5 } = req.query;
     const result = await userService.findAllUsers(parseInt(page), parseInt(limit));
 
     res.json(result);

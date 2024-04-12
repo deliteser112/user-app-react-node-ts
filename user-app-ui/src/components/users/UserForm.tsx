@@ -4,9 +4,9 @@ import InputField from "../common/InputField";
 import { User } from '../../types/user';
 
 interface UserFormProps {
-  user?: User; // If user is provided, the form is in edit mode.
-  onSuccess: () => void; // Callback function to invoke on successful add/edit.
-  onSave: (userData: Partial<User>) => {}; // Ensure onSave is correctly typed
+  user?: User;
+  onSuccess: () => void;
+  onSave: (userData: Partial<User>) => {};
 }
 
 const UserForm: React.FC<UserFormProps> = ({ user, onSuccess, onSave }) => {

@@ -26,6 +26,4 @@ describe('userController.createUser', () => {
     expect(JSON.parse(res._getData())).toEqual(userData); // Parse the JSON string before comparison
     expect(userService.createUser).toHaveBeenCalledWith(userData);
   });
-
-  // Additional tests can be added here to cover error cases, validation failures, etc.
 });

@@ -8,12 +8,8 @@ require('dotenv').config();
  * @property {string} dbUri - The MongoDB connection URI obtained from the environment variables.
  */
 const config = {
-  // The port number for the application to listen on. Defaults to 4000 if the PORT environment variable is not set.
   port: process.env.PORT || 4000,
-
-  // The URI used for connecting to the MongoDB database. It is retrieved from the environment variables.
   dbUri: process.env.DB_URI || 'mongodb://localhost:27017/user',
 };
 
-// Export the config object to make it accessible in other parts of the application.
 module.exports = config;

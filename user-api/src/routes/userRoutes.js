@@ -1,12 +1,9 @@
 // src/routes/userRoutes.js
 
-// Import the Express framework to create route handlers.
 const express = require('express');
-// Import the userController to connect route handlers with controller logic.
 const userController = require('../controllers/userController');
 const { userCreationRules, validate } = require('../middlewares/userValidation');
 
-// Create a new router object to define routes for user-related operations.
 const router = express.Router();
 
 /**

@@ -3,19 +3,39 @@
 paths:
   /users:
     get:
-      summary: Retrieves a list of all users
-      description: Returns all users from the database.
+      summary: Retrieves all users
+      description: Fetches a paginated list of users from the database.
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Page number of the user listing
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 5
+          description: Number of users per page
       responses:
-        200:
-          description: A list of users.
+        "200":
+          description: A list of users
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/User"
-        400:
-          description: Bad Request
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/User"
+                  totalPages:
+                    type: integer
+                  currentPage:
+                    type: integer
+        "500":
+          description: Server error
           content:
             application/json:
               schema:
@@ -23,7 +43,7 @@ paths:
 
     post:
       summary: Creates a new user
-      description: Adds a new user to the database.
+      description: Adds a new user to the database and returns the newly created user.
       requestBody:
         required: true
         content:
@@ -31,14 +51,14 @@ paths:
             schema:
               $ref: "#/components/schemas/UserInput"
       responses:
-        201:
-          description: User created successfully.
+        "201":
+          description: User created successfully
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        400:
-          description: Invalid input
+        "400":
+          description: Bad request
           content:
             application/json:
               schema:
@@ -46,45 +66,37 @@ paths:
 
   /users/{id}:
     get:
-      summary: Retrieves a user by ID
-      description: Returns a single user from the database by their ID.
+      summary: Retrieves a single user by ID
+      description: Fetches details of a single user by their ID.
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-          description: The user ID.
+          description: The user ID
       responses:
-        200:
-          description: A user object.
+        "200":
+          description: User details
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        404:
+        "404":
           description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
 
     put:
-      summary: Updates a user's information by their ID
-      description: Modifies an existing user's details in the database.
+      summary: Updates a user
+      description: Updates a user's information by their ID.
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-          description: The user ID.
+          description: The user ID
       requestBody:
         required: true
         content:
@@ -92,47 +104,29 @@ paths:
             schema:
               $ref: "#/components/schemas/UserInput"
       responses:
-        200:
-          description: User updated successfully.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        400:
-          description: Invalid input
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        404:
+        "200":
+          description: User updated successfully
+        "400":
+          description: Validation error
+        "404":
           description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error
 
     delete:
-      summary: Deletes a user by their ID
-      description: Removes a user from the database by their ID.
+      summary: Deletes a user
+      description: Deletes a user by their ID from the database.
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
-          description: The user ID.
+          description: The user ID
       responses:
-        204:
+        "204":
           description: User deleted successfully
-        400:
-          description: Bad Request
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-        404:
+        "404":
           description: User not found
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
+        "500":
+          description: Server error

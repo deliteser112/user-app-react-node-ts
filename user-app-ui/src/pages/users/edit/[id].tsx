@@ -46,7 +46,6 @@ const UserEditPage: React.FC = () => {
   }
 
   if (!user) {
-    // Consider showing an error message or a not found message
     return (
       <Layout title="Edit User">
         <div>User not found</div>
