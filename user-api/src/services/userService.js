@@ -1,3 +1,5 @@
+// src/services/userService.js
+
 // Import the User model for accessing the database.
 const User = require('../models/User');
 
@@ -5,9 +7,20 @@ const User = require('../models/User');
  * Retrieves all users from the database.
  * @returns {Promise<Array>} A promise that resolves with an array of all user documents.
  */
-const findAllUsers = async () => {
+const findAllUsers = async (page = 1, limit = 10) => {
   try {
-    return await User.find();
+    const users = await User.find()
+      .limit(limit * 1)
+      .skip((page - 1) * limit)
+      .exec();
+
+    const count = await User.countDocuments();
+
+    return {
+      users,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page,
+    };
   } catch (error) {
     throw error;
   }

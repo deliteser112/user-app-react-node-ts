@@ -1,3 +1,5 @@
+// src/routes/userRoutes.js
+
 // Import the Express framework to create route handlers.
 const express = require('express');
 // Import the userController to connect route handlers with controller logic.

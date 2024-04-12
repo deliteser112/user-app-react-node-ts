@@ -1,3 +1,5 @@
+// src/controllers/userController.js
+
 const userService = require('../services/userService');
 
 /**
@@ -8,12 +10,11 @@ const userService = require('../services/userService');
  */
 exports.getAllUsers = async (req, res) => {
   try {
-    // Request all users from the service
-    const users = await userService.findAllUsers();
-    // Send the users as a JSON response
-    res.json(users);
+    const { page = 1, limit = 10 } = req.query;
+    const result = await userService.findAllUsers(parseInt(page), parseInt(limit));
+
+    res.json(result);
   } catch (err) {
-    // Handle any errors that occur during the process
     res.status(500).json({ message: "Failed to fetch users", error: err.message });
   }
 };

@@ -10,10 +10,19 @@ export interface User {
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/users';
 
 // Fetch all users
-export const fetchUsers = async (): Promise<User[]> => {
-  const response = await fetch(API_URL);
+export const fetchUsers = async (page = 1, limit = 10): Promise<any> => {
+  const response = await fetch(`${API_URL}?page=${page}&limit=${limit}`);
   if (!response.ok) {
     throw new Error('Failed to fetch users');
+  }
+  return response.json();
+};
+
+// Fetch the data by user id
+export const findUserById = async (id: string): Promise<User> => {
+  const response = await fetch(`${API_URL}/${id}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch user details');
   }
   return response.json();
 };

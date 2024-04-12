@@ -2,26 +2,37 @@
 
 import React, { useEffect, useState } from "react";
 import { User, fetchUsers, deleteUser } from "../../features/users/usersAPI";
+
 import ConfirmDialog from "../common/ConfirmDialog";
+import Pagination from "../common/Pagination";
+
 import UserItem from "./UserItem";
 
+const PAGE_PER_ITEMS = 5;
+
 const UsersList: React.FC = () => {
-  const [users, setUsers] = useState<User[]>([]);
+  const [paginatedUsers, setPaginatedUsers] = useState<User[]>([]);
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [userIdToDelete, setUserIdToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const usersData = await fetchUsers();
-        setUsers(usersData);
+        const { users, totalPages } = await fetchUsers(
+          currentPage,
+          PAGE_PER_ITEMS
+        );
+        setPaginatedUsers(users);
+        setTotalPages(totalPages);
       } catch (error) {
         console.error("Failed to fetch users:", error);
       }
     };
 
     loadUsers();
-  }, []);
+  }, [currentPage]);
 
   const openConfirmDialog = (userId: string) => {
     setUserIdToDelete(userId);
@@ -32,13 +43,19 @@ const UsersList: React.FC = () => {
     if (userIdToDelete) {
       try {
         await deleteUser(userIdToDelete);
-        setUsers(users.filter((user) => user._id !== userIdToDelete));
+        setPaginatedUsers(
+          paginatedUsers.filter((user) => user._id !== userIdToDelete)
+        );
         setIsConfirmOpen(false);
         setUserIdToDelete(null);
       } catch (error) {
         console.error("Failed to delete user:", error);
       }
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -50,9 +67,14 @@ const UsersList: React.FC = () => {
         title="Confirm User Deletion"
         message="Are you sure you want to delete this user?"
       />
-      {users.map((user) => (
+      {paginatedUsers.map((user) => (
         <UserItem key={user._id} user={user} onDelete={openConfirmDialog} />
       ))}
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

@@ -1,46 +1,65 @@
 // src/pages/users/edit/[id].tsx
+
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { User, updateUser, fetchUsers } from "../../../features/users/usersAPI";
+import {
+  User,
+  updateUser,
+  findUserById,
+} from "../../../features/users/usersAPI"; // Make sure to import findUserById
 import UserForm from "../../../components/users/UserForm";
-import UserFormSkeleton from "../../../components/users/SkeletonUserForm"; // Import the UserFormSkeleton component
+import SkeletonUserForm from "../../../components/users/SkeletonUserForm"; // Adjust the import as necessary
 import Layout from "../../../components/layout/Layout";
 
 const UserEditPage: React.FC = () => {
   const router = useRouter();
   const { id } = router.query;
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true); // Add a loading state
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      setLoading(true); // Set loading to true when the fetch starts
       if (typeof id === "string") {
-        const users = await fetchUsers();
-        const userDetails = users.find((user) => user._id === id);
-        if (userDetails) {
+        setIsLoading(true);
+        try {
+          const userDetails = await findUserById(id);
           setUser(userDetails);
-        } else {
+        } catch (error) {
+          console.error("Failed to fetch user:", error);
           router.push("/users");
+        } finally {
+          setIsLoading(false);
         }
       }
-      setLoading(false); // Set loading to false when the fetch completes
     };
 
     fetchUserDetails();
   }, [id, router]);
 
+  if (isLoading) {
+    return (
+      <Layout title="Edit User">
+        <SkeletonUserForm />
+      </Layout>
+    );
+  }
+
+  if (!user) {
+    // Consider showing an error message or a not found message
+    return (
+      <Layout title="Edit User">
+        <div>User not found</div>
+      </Layout>
+    );
+  }
+
   return (
-    <Layout title="User | Edit">
-      {loading ? (
-        <UserFormSkeleton />
-      ) : (
-        <UserForm
-          user={user}
-          onSuccess={() => router.push(`/users/details/${user?._id}`)}
-          onSave={(userData) => updateUser(user?._id, userData)}
-        />
-      )}
+    <Layout title="Edit User">
+      <UserForm
+        user={user}
+        onSuccess={() => router.push(`/users/details/${user._id}`)}
+        onSave={(userData) => updateUser(user._id, userData)}
+      />
     </Layout>
   );
 };
