@@ -12,7 +12,7 @@ const config = {
   port: process.env.PORT || 4000,
 
   // The URI used for connecting to the MongoDB database. It is retrieved from the environment variables.
-  dbUri: process.env.DB_URI,
+  dbUri: process.env.DB_URI || 'mongodb://127.0.0.1:27017/user',
 };
 
 // Export the config object to make it accessible in other parts of the application.
