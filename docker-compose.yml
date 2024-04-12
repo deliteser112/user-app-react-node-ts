@@ -7,9 +7,12 @@ services:
       - "4000:4000"
     environment:
       - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/user # Adjust database name as needed
     volumes:
       - ./user-api:/usr/src/app
       - /usr/src/app/node_modules
+    depends_on:
+      - mongodb
 
   user-app-ui:
     build:
@@ -18,3 +21,13 @@ services:
       - "80:80"
     depends_on:
       - user-api
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mongodb-data:
