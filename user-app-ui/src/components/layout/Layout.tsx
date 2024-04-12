@@ -1,16 +1,18 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import Header from "./Header";
 
 interface LayoutProps {
-  children: ReactNode;
+  children: React.ReactNode;
   title?: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, title }) => {
+const DEFAULT_TITLE = "User | Home";
+
+const Layout: React.FC<LayoutProps> = ({ children, title = DEFAULT_TITLE }) => {
   return (
     <div>
       <Header title={title} />
-      <main className="max-w-[1200px] mx-auto my-10">{children}</main>
+      <main className="max-w-[1200px] mx-auto my-10 p-4">{children}</main>
     </div>
   );
 };

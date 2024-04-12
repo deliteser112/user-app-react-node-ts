@@ -1,41 +1,16 @@
 // src/pages/users/edit/[id].tsx
-
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import {
-  updateUser,
-  findUserById,
-} from "../../../features/users/usersAPI";
-import UserForm from "../../../components/users/UserForm";
-import SkeletonUserForm from "../../../components/users/SkeletonUserForm";
-import Layout from "../../../components/layout/Layout";
-
-import { User } from '../../../types/user';
+import React from 'react';
+import { useRouter } from 'next/router';
+import UserForm from '../../../components/users/UserForm';
+import SkeletonUserForm from '../../../components/users/SkeletonUserForm';
+import Layout from '../../../components/layout/Layout';
+import useUserDetails from '../../../hooks/useUserDetails';
+import { updateUser } from '../../../features/users/usersAPI';
 
 const UserEditPage: React.FC = () => {
   const router = useRouter();
-  const { id } = router.query;
-  const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchUserDetails = async () => {
-      if (typeof id === "string") {
-        setIsLoading(true);
-        try {
-          const userDetails = await findUserById(id);
-          setUser(userDetails);
-        } catch (error) {
-          console.error("Failed to fetch user:", error);
-          router.push("/users");
-        } finally {
-          setIsLoading(false);
-        }
-      }
-    };
-
-    fetchUserDetails();
-  }, [id, router]);
+  const { id } = router.query as { id: string };
+  const { user, isLoading, error } = useUserDetails(id);
 
   if (isLoading) {
     return (
@@ -45,10 +20,10 @@ const UserEditPage: React.FC = () => {
     );
   }
 
-  if (!user) {
+  if (error || !user) {
     return (
       <Layout title="Edit User">
-        <div>User not found</div>
+        <div>{error || "User not found"}</div>
       </Layout>
     );
   }

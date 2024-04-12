@@ -2,11 +2,13 @@ import React from "react";
 import Link from "next/link";
 import Head from "next/head";
 
-type Props = {
+interface HeaderProps {
   title?: string;
-};
+}
 
-const Header = ({ title }: Props) => (
+const DEFAULT_TITLE = "User | Home";
+
+const Header: React.FC<HeaderProps> = ({ title = DEFAULT_TITLE }) => (
   <div>
     <Head>
       <title>{title}</title>
@@ -16,12 +18,12 @@ const Header = ({ title }: Props) => (
     <header>
       <nav className="navbar bg-base-100 mx-auto max-w-7xl mt-4 px-4 shadow-xl rounded-box justify-between">
         <div className="navbar-start">
-          <Link href="/">
+          <Link href="/" passHref>
             <span className="btn btn-ghost normal-case text-xl">HOME</span>
           </Link>
         </div>
         <div className="navbar-end">
-          <Link href="/users/add">
+          <Link href="/users/add" passHref>
             <span className="btn btn-ghost normal-case">+ Add User</span>
           </Link>
         </div>

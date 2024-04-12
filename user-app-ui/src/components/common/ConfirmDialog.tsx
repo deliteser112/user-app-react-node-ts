@@ -1,5 +1,6 @@
 // src/components/ConfirmDialog.tsx
-import React from "react";
+
+import React, { useEffect } from 'react';
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -16,11 +17,30 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   title,
   message,
 }) => {
+  useEffect(() => {
+    const closeOnEscapeKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.body.addEventListener('keydown', closeOnEscapeKeyDown);
+    return () => {
+      document.body.removeEventListener('keydown', closeOnEscapeKeyDown);
+    };
+  }, [onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg max-w-sm mx-auto">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-4 rounded-lg max-w-sm mx-auto"
+        onClick={(e) => e.stopPropagation()} // Prevent click through
+      >
         <h2 className="text-lg font-bold">{title}</h2>
         <p className="my-4">{message}</p>
         <div className="flex justify-end gap-4">

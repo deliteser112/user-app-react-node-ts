@@ -4,3 +4,8 @@ export interface User {
   email: string;
   age: number;
 }
+
+export interface ApiError {
+  message: string;
+  statusCode?: number;
+}

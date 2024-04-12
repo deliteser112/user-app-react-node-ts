@@ -1,41 +1,67 @@
-const Pagination = ({ totalPages, currentPage, onPageChange }) => {
+import React from 'react';
+
+// TypeScript props definition for added type safety
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
+// A reusable PaginationButton component
+const PaginationButton: React.FC<{
+  children: React.ReactNode;
+  onClick: () => void;
+  disabled?: boolean;
+  isActive?: boolean;
+}> = ({ children, onClick, disabled, isActive = false }) => {
+  return (
+    <button
+      className={`py-2 px-4 rounded-full ${
+        disabled
+          ? 'cursor-not-allowed opacity-50'
+          : 'hover:bg-gray-300'
+      } ${isActive ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {children}
+    </button>
+  );
+};
+
+const Pagination: React.FC<PaginationProps> = ({
+  totalPages,
+  currentPage,
+  onPageChange,
+}) => {
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
   return (
     <div className="flex items-center justify-center space-x-1">
-      <button
-        className={`py-2 px-4 rounded-full ${
-          currentPage === 1
-            ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-300"
-        }`}
+      <PaginationButton
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
+        aria-label="Previous Page"
       >
-        {"<"}
-      </button>
+        {'<'}
+      </PaginationButton>
       {pages.map((page) => (
-        <button
+        <PaginationButton
           key={page}
-          className={`py-2 px-4 rounded-full ${
-            page === currentPage ? "bg-blue-600 text-white" : "bg-gray-200"
-          }`}
           onClick={() => onPageChange(page)}
+          isActive={page === currentPage}
+          aria-label={`Page ${page}`}
         >
           {page}
-        </button>
+        </PaginationButton>
       ))}
-      <button
-        className={`py-2 px-4 rounded-full ${
-          currentPage === totalPages
-            ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-300"
-        }`}
+      <PaginationButton
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
+        aria-label="Next Page"
       >
-        {">"}
-      </button>
+        {'>'}
+      </PaginationButton>
     </div>
   );
 };
