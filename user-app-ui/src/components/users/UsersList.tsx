@@ -1,3 +1,5 @@
+//  src/components/users/UsersList.tsx
+
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteUser } from "../../features/users/usersAPI";
@@ -39,6 +41,10 @@ const UsersList: React.FC = () => {
       await deleteMutation(userIdToDelete);
       setIsConfirmOpen(false);
       setUserIdToDelete(null);
+  
+      if (data.users.length === 1 && currentPage > 1) {
+        setCurrentPage((prevPage) => prevPage - 1);
+      }
     }
   };
 

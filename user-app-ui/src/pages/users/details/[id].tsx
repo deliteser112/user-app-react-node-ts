@@ -13,7 +13,7 @@ const UserDetailsPage: React.FC = () => {
   if (isLoading) {
     return (
       <Layout title="User | Details">
-        <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg mt-10">
+        <div className="max-w-4xl mx-auto p-5 shadow rounded-lg mt-10">
           <SkeletonUserDetail />
         </div>
       </Layout>
@@ -23,7 +23,7 @@ const UserDetailsPage: React.FC = () => {
   if (error || !user) {
     return (
       <Layout title="User | Details">
-        <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg mt-10">
+        <div className="max-w-4xl mx-auto p-5 shadow rounded-lg mt-10">
           <div className="text-center my-10">{error || "User not found"}</div>
         </div>
       </Layout>
@@ -32,7 +32,7 @@ const UserDetailsPage: React.FC = () => {
 
   return (
     <Layout title="User | Details">
-      <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg mt-10">
+      <div className="max-w-4xl mx-auto p-5 shadow rounded-lg mt-10">
         <h2 className="text-2xl font-bold mb-5">User Details</h2>
         <div className="mb-4"><span className="text-gray-600 font-medium">Name:</span> {user.name}</div>
         <div className="mb-4"><span className="text-gray-600 font-medium">Email:</span> {user.email}</div>

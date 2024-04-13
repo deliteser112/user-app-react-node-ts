@@ -30,7 +30,7 @@ const UserItem: React.FC<UserItemProps> = ({ user, onDelete }) => {
 
   return (
     <div
-      className="flex justify-between items-center py-4 px-6 bg-white shadow rounded-lg mb-4 hover:bg-gray-100 cursor-pointer"
+      className="flex justify-between items-center py-4 px-6 shadow rounded-lg mb-4 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
       onClick={handleNavigateToDetails}
     >
       <div className="flex-1">

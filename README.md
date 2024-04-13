@@ -36,7 +36,7 @@ The project consists of two main parts: the `user-api` directory for the Node.js
 3. Run `docker-compose up` to build and start the project containers.
 4. Access the API at `http://localhost:4000`.
 5. Access the Swagger API Documentation at `http://localhost:4000/api-docs`.
-6. Access the React web application at `http://localhost:5000`.
+6. Access the React web application at `http://localhost:3000`.
 
 #### Without Docker
 ##### Running the Node.js API:

@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ title = DEFAULT_TITLE }) => (
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />
     </Head>
     <header>
-      <nav className="navbar bg-base-100 mx-auto max-w-7xl mt-4 px-4 shadow-xl rounded-box justify-between">
+      <nav className="navbar mx-auto max-w-7xl mt-4 px-4 shadow-xl rounded-box justify-between">
         <div className="navbar-start">
           <Link href="/" passHref>
             <span className="btn btn-ghost normal-case text-xl">HOME</span>

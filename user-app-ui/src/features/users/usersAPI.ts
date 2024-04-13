@@ -1,6 +1,8 @@
+// src/features/users/usersAPI.ts
+
 import { User } from '../../types/user';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://user-app-react-node-ts.onrender.com/api/users';
+const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://user-app-react-node-ts.onrender.com/api/users';
 
 interface ApiResponse<T> {
   users: any;
