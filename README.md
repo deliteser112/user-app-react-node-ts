@@ -63,8 +63,21 @@ The project consists of two main parts: the `user-api` directory for the Node.js
 - PUT `/api/users/:id`: Update an existing user by ID.
 - DELETE `/api/users/:id`: Delete a user by ID.
 
-### React Web Application
-The React web application allows users to interact with the API endpoints for managing user data. It includes features such as adding, editing, and deleting users.
+### Project Deployment
+The project has been successfully deployed to online servers for both the frontend React web application and the backend Node.js API. Below are the deployment URLs for easy access:
+
+- **Backend API (Swagger Documentation):**
+  - [https://user-app-react-node-ts.onrender.com/api-docs/](https://user-app-react-node-ts.onrender.com/api-docs/)
+  
+- **Frontend React Web Application:**
+  - [https://user-react-node-ara.vercel.app/](https://user-react-node-ara.vercel.app/)
+
+### Accessing the Deployed Applications
+- **Backend API (Swagger Documentation):**
+  - The Swagger documentation provides detailed information about the API endpoints and how to interact with them. You can explore the API documentation at the provided URL.
+
+- **React Web Application:**
+  - The React web application allows users to interact with the API endpoints for managing user data. You can access the deployed React application to perform CRUD operations on the user data.
 
 ### Additional Notes
 - Ensure to set up environment variables as per the `.env.example` files in both directories.
