@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import HomePage from '../index';
+import HomePage from '../pages/index';
 
 // It's a good practice to mock child components if they are not relevant to the test.
 // This helps in isolating the test to check only the functionality of the HomePage component.
-jest.mock('../../components/layout/Layout', () => {
+jest.mock('../components/layout/Layout', () => {
   return {
     __esModule: true, // This is needed to correctly mock a module with a default export.
     default: ({ children, title }) => (
@@ -15,7 +15,7 @@ jest.mock('../../components/layout/Layout', () => {
     )
   };
 });
-jest.mock('../../components/users/UsersList', () => () => <div data-testid="users-list"/>);
+jest.mock('../components/users/UsersList', () => () => <div data-testid="users-list"/>);
 
 describe('HomePage', () => {
   it('renders without crashing and contains the correct title', () => {

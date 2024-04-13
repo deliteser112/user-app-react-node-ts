@@ -1,21 +1,21 @@
 import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import UserDetailsPage from '../users/details/[id]';
+import UserDetailsPage from '../pages/users/details/[id]';
 import { useRouter } from 'next/router';
-import useUserDetails from '../../hooks/useUserDetails';
+import useUserDetails from '../hooks/useUserDetails';
 
 // Mocking next/router and useUserDetails
 jest.mock('next/router', () => ({
   useRouter: jest.fn()
 }));
-jest.mock('../../hooks/useUserDetails');
+jest.mock('../hooks/useUserDetails');
 
 // Optional: Mock child components if they are not relevant to the test
-jest.mock('../../components/layout/Layout', () => ({
+jest.mock('../components/layout/Layout', () => ({
   __esModule: true,
   default: ({ children }) => <div>{children}</div>
 }));
-jest.mock('../../components/users/SkeletonUserDetail', () => () => <div>SkeletonUserDetail</div>);
+jest.mock('../components/users/SkeletonUserDetail', () => () => <div>SkeletonUserDetail</div>);
 
 describe('UserDetailsPage', () => {
   it('displays skeleton when data is loading', () => {

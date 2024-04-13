@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import AddUserPage from '../users/add';
+import AddUserPage from '../pages/users/add';
 import { useRouter } from 'next/router';
 
 // Mocking useRouter
@@ -10,7 +10,7 @@ jest.mock('next/router', () => ({
 }));
 
 // Mocking UserForm and its onSave handling
-jest.mock('../../components/users/UserForm', () => {
+jest.mock('../components/users/UserForm', () => {
   return {
     __esModule: true,
     default: ({ onSuccess }) => (
