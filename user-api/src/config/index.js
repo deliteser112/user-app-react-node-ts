@@ -10,6 +10,7 @@ require('dotenv').config();
 const config = {
   port: process.env.PORT || 4000,
   dbUri: process.env.DB_URI || 'mongodb+srv://deliteser112:kzlH61d6JjXl9g4I@deliteser.tlh8y7k.mongodb.net/user',
+  // dbUri: process.env.DB_URI || 'mongodb://localhost:27017/user',
 };
 
 module.exports = config;
