@@ -6,7 +6,7 @@ import { User } from '../../types/user';
 interface UserFormProps {
   user?: User;
   onSuccess: () => void;
-  onSave: (userData: Partial<User>) => Promise<void>;
+  onSave: (userData: Partial<User>) => {};
 }
 
 const UserForm: React.FC<UserFormProps> = ({ user, onSuccess, onSave }) => {
