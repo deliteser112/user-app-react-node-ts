@@ -18,7 +18,7 @@ services:
     build:
       context: ./user-app-ui
     ports:
-      - "5000:5000"
+      - "3000:3000"
     depends_on:
       - user-api
 
