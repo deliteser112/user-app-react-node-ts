@@ -69,7 +69,7 @@ The project has been successfully deployed to online servers for both the fronte
 - **Backend API (Swagger Documentation):**
   - [https://user-app-react-node-ts.onrender.com/api-docs/](https://user-app-react-node-ts.onrender.com/api-docs/)
   
-- **Frontend React Web Application:**
+- **React Web Application:**
   - [https://user-react-node-ara.vercel.app/](https://user-react-node-ara.vercel.app/)
 
 ### Accessing the Deployed Applications
