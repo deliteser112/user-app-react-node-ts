@@ -67,7 +67,7 @@ export const usersSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.list = action.payload;
+        state.list = action.payload as unknown as User[];
         state.loading = false;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
