@@ -1,13 +1,11 @@
 import React from 'react';
 
-// TypeScript props definition for added type safety
 interface PaginationProps {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
 
-// A reusable PaginationButton component
 const PaginationButton: React.FC<{
   children: React.ReactNode;
   onClick: () => void;

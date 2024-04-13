@@ -11,11 +11,23 @@ const UserDetailsPage: React.FC = () => {
   const { user, isLoading, error } = useUserDetails(id);
 
   if (isLoading) {
-    return <Layout title="User | Details"><SkeletonUserDetail /></Layout>;
+    return (
+      <Layout title="User | Details">
+        <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg mt-10">
+          <SkeletonUserDetail />
+        </div>
+      </Layout>
+    )
   }
 
   if (error || !user) {
-    return <Layout title="User | Details"><div>{error || "User not found"}</div></Layout>;
+    return (
+      <Layout title="User | Details">
+        <div className="max-w-4xl mx-auto p-5 bg-white shadow rounded-lg mt-10">
+          <div className="text-center my-10">{error || "User not found"}</div>
+        </div>
+      </Layout>
+    )
   }
 
   return (

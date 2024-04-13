@@ -1,5 +1,5 @@
 // src/pages/_app.tsx
-
+import React from "react";
 import type { AppProps } from "next/app";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "../queryClient";

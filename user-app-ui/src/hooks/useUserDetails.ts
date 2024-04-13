@@ -17,11 +17,11 @@ const useUserDetails = (userId: string | null) => {
       setIsLoading(true);
       try {
         const data = await findUserById(userId);
-        setUser(data); // Extracting User from ApiResponse
+        setUser(data);
       } catch (error) {
         console.error("Failed to fetch user:", error);
         setError("Failed to fetch user");
-        router.push("/"); // Consider handling errors more gracefully
+        router.push("/");
       } finally {
         setIsLoading(false);
       }

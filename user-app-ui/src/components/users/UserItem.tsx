@@ -18,7 +18,8 @@ interface UserItemProps {
 const UserItem: React.FC<UserItemProps> = ({ user, onDelete }) => {
   const router = useRouter();
 
-  const handleNavigateToDetails = () => {
+  const handleNavigateToDetails = (e) => {
+    e.stopPropagation();
     router.push(`/users/details/${user._id}`);
   };
 
@@ -41,6 +42,7 @@ const UserItem: React.FC<UserItemProps> = ({ user, onDelete }) => {
           href={`/users/edit/${user._id}`}
           passHref
           className="p-2 text-blue-500 hover:text-blue-600 rounded-md hover:bg-gray-300"
+          onClick={(e) => e.stopPropagation()}
         >
           Edit
         </Link>
