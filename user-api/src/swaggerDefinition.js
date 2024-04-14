@@ -1,5 +1,7 @@
 // src/swaggerDefinition.js
 
+const SERVER_URI= process.env.SERVER_URI || 'https://user-app-react-node-ts.onrender.com/api';
+
 const swaggerDefinition = {
   openapi: '3.0.0',
   info: {
@@ -9,7 +11,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'http://localhost:4000/api',
+      url: SERVER_URI,
       description: 'Development server',
     },
   ],
