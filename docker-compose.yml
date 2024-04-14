@@ -7,7 +7,7 @@ services:
       - "4000:4000"
     environment:
       - NODE_ENV=production
-      - MONGODB_URI=mongodb://localhost:27017/user
+      - MONGODB_URI=mongodb://mongodb:27017/user
     volumes:
       - ./user-api:/usr/src/app
       - /usr/src/app/node_modules

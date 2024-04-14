@@ -33,10 +33,11 @@ The project consists of two main parts: the `user-api` directory for the Node.js
 #### With Docker
 1. Clone the repository to your local machine.
 2. Navigate to the root directory of the project.
-3. Run `docker-compose up` to build and start the project containers.
-4. Access the API at `http://localhost:4000`.
-5. Access the Swagger API Documentation at `http://localhost:4000/api-docs`.
-6. Access the React web application at `http://localhost:3000`.
+3. Set up environment variables by creating a `.env` file based on the `.env.example`.
+4. Run `docker-compose up` to build and start the project containers.
+5. Access the API at `http://localhost:4000`.
+6. Access the Swagger API Documentation at `http://localhost:4000/api-docs`.
+7. Access the React web application at `http://localhost:3000`.
 
 #### Without Docker
 ##### Running the Node.js API:
